@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fasterweb.dao.AccountMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" >
+        <property name="timeToIdleSeconds" value="3600"/>
+        <property name="timeToLiveSeconds" value="3600"/>
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+    <resultMap id="AccountInfo" type="com.fasterweb.model.AccountInfo">
+        <!--id映射 -->
+        <id property="id" column="id" />
+        <!--普通属性映射 -->
+        <result property="accountId" column="account_id" />
+        <result property="bankId" column="bank_id" />
+        <result property="aname" column="aname" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <select id="getAccountInfoById" parameterType="int" resultMap="AccountInfo" useCache="false">
+        select *
+        from AccountInfo where id = #{id}
+    </select>
+
+    <select id="getAcountInfoByAccountId" parameterType="int" resultMap="AccountInfo">
+        select *
+        from AccountInfo where account_id = #{accoundId}
+    </select>
+
+    <select id="getAccountInfoByAccountIdAndPassword" resultType="AccountInfo">
+        select *
+        from AccountInfo where account_id = #{acccuntId} and password = #{password}
+    </select>
+
+    <select id="getAccountInfoByAccountIdAndAname" resultType="AccountInfo">
+        select *
+        from AccountInfo where account_id = #{acccuntId} and aname = #{aname}
+    </select>
+
+
+
+
+
+
+
+</mapper>

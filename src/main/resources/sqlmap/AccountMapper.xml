@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fasterweb.dao.AccountMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" >
+        <property name="timeToIdleSeconds" value="3600"/>
+        <property name="timeToLiveSeconds" value="3600"/>
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+   <resultMap id="Account" type="com.fasterweb.model.Account">
+        <!--id映射 -->
+        <id property="id" column="id" />
+        <!--普通属性映射 -->
+        <result property="accountId" column="account_id" />
+        <result property="aname" column="aname" />
+       <result property="money" column="money" />
+   </resultMap>
+
+    <select id="getAccountById" parameterType="int" resultMap="Account" useCache="false">
+        select *
+        from Account where id = #{id}
+    </select>
+    
+    <select id="getAcountByAccountId" parameterType="int" resultMap="Account">
+        select * 
+        from Account where account_id = #{accoundId}
+    </select>
+
+    <insert id="addAccount" parameterType="com.fasterweb.model.Account" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO Account (account_id, aname)
+        VALUES(#{accountId},
+        #{aname})
+    </insert>
+
+    <!-- 更新用户信息，并写回到数据表中 -->
+    <update id="udpateAccount" parameterType="com.fasterweb.model.Account">
+        UPDATE account
+        SET
+        money = #{money}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据传入的Id值，删除单条记录 -->
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM user WHERE
+        id = #{id}
+    </delete>
+
+    <select id="getAllUser" resultMap="Account">
+        SELECT * FROM Account
+    </select>
+
+    <select id="getAcountByAccountIdAndName" resultType="Account">
+        select * from Account where account_id=#{accountId} and aname = #{aname}
+    </select>
+</mapper>

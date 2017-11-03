@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fasterweb.dao.AccountMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" >
+        <property name="timeToIdleSeconds" value="3600"/>
+        <property name="timeToLiveSeconds" value="3600"/>
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+    <resultMap id="" type="com.fasterweb.model.Log">
+        <!--id映射 -->
+        <id property="id" column="id" />
+        <!--普通属性映射 -->
+        <result property="liushui" column="liushui" />
+        <result property="inId" column="in_id" />
+        <result property="outId" column="out_id" />
+        <result property="time" column="time" />
+    </resultMap>
+
+    <select id="getLogById" parameterType="int" resultMap="Log">
+        select *
+        from Log where id = #{id}
+    </select>
+
+    <select id="getLogByLiushui" parameterType="liushui" resultType="Log">
+        select *
+        from Log where liushui = #{liushui}
+    </select>
+
+    <insert id="addLog" parameterType="com.fasterweb.model.Log" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO Log (in_id, out_id, money, atime)
+        VALUES(#{inId}, #{outId}, #{money}, #{atime}
+        #{aname})
+    </insert>
+
+
+</mapper>
