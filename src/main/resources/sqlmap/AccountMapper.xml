@@ -13,8 +13,7 @@
         <!--id映射 -->
         <id property="id" column="id" />
         <!--普通属性映射 -->
-        <result property="accountId" column="account_id" />
-        <result property="aname" column="aname" />
+        <result property="accountInfoId" column="accountInfoId" />
        <result property="money" column="money" />
    </resultMap>
 
@@ -23,16 +22,16 @@
         from Account where id = #{id}
     </select>
     
-    <select id="getAcountByAccountId" parameterType="int" resultMap="Account">
+    <select id="getAcountByAccountInfoId" parameterType="int" resultMap="Account">
         select * 
-        from Account where account_id = #{accoundId}
+        from Account where account_info_id = #{accoundInfoId}
     </select>
 
     <insert id="addAccount" parameterType="com.fasterweb.model.Account" useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO Account (account_id, aname)
+        INSERT INTO Account (account_info_id, money)
         VALUES(#{accountId},
-        #{aname})
+        #{money})
     </insert>
 
     <!-- 更新用户信息，并写回到数据表中 -->
@@ -43,11 +42,4 @@
         WHERE id = #{id}
     </update>
 
-    <select id="getAllUser" resultMap="Account">
-        SELECT * FROM Account
-    </select>
-
-    <select id="getAcountByAccountIdAndName" resultType="Account">
-        select * from Account where account_id=#{accountId} and aname = #{aname}
-    </select>
 </mapper>

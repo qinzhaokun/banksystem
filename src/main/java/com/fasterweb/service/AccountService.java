@@ -3,7 +3,6 @@ package com.fasterweb.service;
 import com.fasterweb.dao.AccountMapper;
 import com.fasterweb.model.Account;
 import com.fasterweb.model.Log;
-import com.fasterweb.model.TransferForm;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +18,8 @@ public class AccountService {
     @Resource
     private LogService logService;
 
-    public Account getAccountByAccountId(Integer accountId){
-        return accountMapper.getAcountByAccountId(accountId);
+    public Account getAccountByAccountInfoId(Integer accountInfoId){
+        return accountMapper.getAcountByAccountInfoId(accountInfoId);
     }
 
     public Account getAccountById(Integer id){
@@ -89,8 +88,8 @@ public class AccountService {
 
     public boolean jiaoyan(Integer totalMoney, Integer in_id, Integer out_id){
         //这里的查询要禁用缓存
-        Account account1 = getAccountByAccountId(in_id);
-        Account account2 = getAccountByAccountId(out_id);
+        Account account1 = getAccountByAccountInfoId(in_id);
+        Account account2 = getAccountByAccountInfoId(out_id);
         if(account1 == null || account2 == null){
             return false;
         }

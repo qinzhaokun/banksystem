@@ -9,7 +9,7 @@ public interface AccountMapper {
 
     Account getAccountById(Integer id);
 
-    Account getAcountByAccountId(Integer accountId);
+    Account getAcountByAccountInfoId(Integer accountInfoId);
 
     void udpateAccount(Account account);
 

@@ -64,7 +64,7 @@ public class BankController {
         }
 
         //得到转入的存款账户
-        Account accountIn = accountService.getAccountByAccountId(accountInfoIn.getAccountId());
+        Account accountIn = accountService.getAccountByAccountInfoId(accountInfoIn.getId());
 
         if(accountIn == null){
             return "转入资金账户异常";
@@ -79,7 +79,7 @@ public class BankController {
         }
 
         //拿到转出账户存款账户
-        Account accountOut = accountService.getAccountByAccountId(accountInfoOut.getAccountId());
+        Account accountOut = accountService.getAccountByAccountInfoId(accountInfoOut.getId());
 
         if(accountInfoOut == null){
             return "转出资金账户异常";
@@ -104,10 +104,13 @@ public class BankController {
     @RequestMapping("/viemmoney")
     @ResponseBody
     public String viewMoney(@RequestBody Integer accountId){
-        Account account = accountService.getAccountByAccountId(accountId);
+        AccountInfo accountInfo = accountInfoService.getAccountinfoByAccountId(accountId);
+        if(accountInfo == null){
+            return "账户不存在";
+        }
+        Account account = accountService.getAccountByAccountInfoId(accountInfo.getId());
         if(account == null){
             return "账户不存在";
-
         }
 
         return account.getMoney().toString();
