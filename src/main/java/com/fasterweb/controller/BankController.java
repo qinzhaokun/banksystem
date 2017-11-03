@@ -66,15 +66,24 @@ public class BankController {
         //得到转入的存款账户
         Account accountIn = accountService.getAccountByAccountId(accountInfoIn.getAccountId());
 
+        if(accountIn == null){
+            return "转入资金账户异常";
+        }
 
         //拿到转入账户
         AccountInfo accountInfoOut = accountInfoService.getAccountinfoByAccountId(transferForm.getOutId());
 
         //由于已经登录了，所以转出账户一定存在
+        if(accountInfoOut == null){
+            return "转出账户不存在";
+        }
 
         //拿到转出账户存款账户
         Account accountOut = accountService.getAccountByAccountId(accountInfoOut.getAccountId());
 
+        if(accountInfoOut == null){
+            return "转出资金账户异常";
+        }
         //判断是否超过余额
         flag = accountService.validYue(transferForm.getMoney(), accountOut.getId());
 
@@ -82,6 +91,7 @@ public class BankController {
             return "余额不足";
         }
 
+        //开始转账，该操作是事务行的
         flag = accountService.transfer(accountIn,accountOut,transferForm.getLiushui(), transferForm.getMoney());
 
         if(!flag){

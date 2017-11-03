@@ -43,12 +43,6 @@
         WHERE id = #{id}
     </update>
 
-    <!-- 根据传入的Id值，删除单条记录 -->
-    <delete id="deleteById" parameterType="int">
-        DELETE FROM user WHERE
-        id = #{id}
-    </delete>
-
     <select id="getAllUser" resultMap="Account">
         SELECT * FROM Account
     </select>
