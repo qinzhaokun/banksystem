@@ -56,8 +56,8 @@ public class BankController {
         }
         boolean flag;
 
-        //判断账户是否异常
-        flag = accountInfoService.validAccount(accountInfoIn.getAccountId(), accountInfoIn.getAname());
+        //判断账户是否异常, 提供的转出账户的账户id和姓名一致
+        flag = accountInfoService.validAccount(accountInfoIn.getAccountId(), transferForm.getAname());
 
         if(!flag){
             return "转入账户账户名和姓名不匹配，或该账户异常";

@@ -8,6 +8,8 @@ public class TransferForm {
 
     private Integer outId;
 
+    private String aname;
+
     private Integer money;
 
     public void setMoney(Integer money) {
@@ -40,5 +42,13 @@ public class TransferForm {
 
     public void setInId(Integer inId) {
         this.inId = inId;
+    }
+
+    public void setAname(String aname) {
+        this.aname = aname;
+    }
+
+    public String getAname() {
+        return aname;
     }
 }
